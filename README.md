@@ -38,3 +38,37 @@ For chatting with others using the framework:
 ## Contributing
 
 If you're interested in contributing to Tailwind CSS, please read our [contributing docs](https://github.com/tailwindcss/tailwindcss/blob/next/.github/CONTRIBUTING.md) **before submitting a pull request**.
+
+## Running Tests with Coverage and SonarQube
+
+To generate code coverage and report it to SonarQube:
+
+1. **Install the correct coverage provider:**
+   - Make sure `vitest` and `@vitest/coverage-v8` are on the same major version. For example:
+     ```sh
+     pnpm add -w -D vitest@latest @vitest/coverage-v8@latest
+     ```
+
+2. **Run tests with coverage:**
+   ```sh
+   pnpm vitest run --coverage
+   ```
+   This will generate a coverage report at `coverage/lcov.info`.
+
+3. **Run SonarQube analysis:**
+   ```sh
+   sonar-scanner \
+     -Dsonar.projectKey=tailwind \
+     -Dsonar.sources=. \
+     -Dsonar.host.url=http://localhost:9000 \
+     -Dsonar.token=sqp_2b706011529f6dcc3ef8207723c3f86ff1c793eb \
+     -Dsonar.javascript.lcov.reportPaths=packages/tailwindcss/coverage/lcov.info
+   ```
+   Replace `YOUR_TOKEN` with your actual SonarQube token.
+
+---
+
+**Troubleshooting:**
+- If you see errors about version mismatches, upgrade both `vitest` and `@vitest/coverage-v8` to the latest version.
+- If you use a monorepo, always install devDependencies at the workspace root with `-w`.
+

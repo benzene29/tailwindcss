@@ -8,5 +8,10 @@ export default defineConfig({
   test: {
     snapshotSerializers: [path.resolve(__dirname, 'src/test-utils/custom-serializer.ts')],
     exclude: ['**/*.spec.?(c|m)[jt]s?(x)', 'integrations/**/*'],
+    coverage: {
+      provider: 'v8',
+      reportsDirectory: 'coverage',
+      reporter: ['text', 'lcov'],
+    },
   },
 })
